@@ -1,0 +1,6 @@
+app_name = "workspace_number_cards"
+app_title = "Workspace Number Cards"
+app_publisher = "SurgiShop"
+app_description = "Create custom number cards"
+app_email = "gary.starr@surgishop.com"
+app_license = "MIT"
