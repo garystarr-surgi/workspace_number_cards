@@ -26,14 +26,32 @@ def open_warranty_claims():
     )
     return {"value": count, "fieldtype": "Int"}
 
+import frappe
+from frappe.utils import today
+
 @frappe.whitelist()
-def total_revenue_user():
+def total_unpaid_revenue_today_user():
+    """
+    Sum of today's submitted Sales Invoices in Unpaid status
+    for logged-in user.
+    """
+
     total = frappe.db.get_value(
-        "Sales Order",
-        filters={"docstatus": 1, "owner": frappe.session.user},
+        "Sales Invoice",
+        filters={
+            "docstatus": 1,
+            "status": "Unpaid",
+            "owner": frappe.session.user,
+            "posting_date": today()
+        },
         fieldname="sum(grand_total)"
     )
-    return {"value": total or 0, "fieldtype": "Float"}
+
+    return {
+        "value": total or 0,
+        "fieldtype": "Currency"
+    }
+
 
 @frappe.whitelist()
 def total_revenue_company(company=None):
