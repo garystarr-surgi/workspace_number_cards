@@ -12,6 +12,6 @@ def open_sales_orders_count():
 
     return {
         "value": count,
-        "fieldtype": "Float"
+        "fieldtype": "Int"
     }
 
