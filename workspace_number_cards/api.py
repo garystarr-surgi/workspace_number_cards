@@ -18,13 +18,24 @@ def open_sales_orders_count():
 @frappe.whitelist()
 def open_warranty_claims():
     """
-    Count of Draft Warranty Claims (docstatus=0) owned by logged-in user
+    Count of Open Warranty Claims assigned to logged-in user
     """
+
+    user = frappe.session.user
+
     count = frappe.db.count(
         "Warranty Claim",
-        {"docstatus": "Open", "owner": frappe.session.user}
+        {
+            "status": "Open",
+            "_assign": ["like", f"%{user}%"]
+        }
     )
-    return {"value": count, "fieldtype": "Int"}
+
+    return {
+        "value": count,
+        "fieldtype": "Int"
+    }
+
 
 import frappe
 from frappe.utils import today
