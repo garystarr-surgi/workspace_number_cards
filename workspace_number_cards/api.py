@@ -22,7 +22,7 @@ def open_warranty_claims():
     """
     count = frappe.db.count(
         "Warranty Claim",
-        {"docstatus": 0, "owner": frappe.session.user}
+        {"docstatus": Open, "owner": frappe.session.user}
     )
     return {"value": count, "fieldtype": "Int"}
 
