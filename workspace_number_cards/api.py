@@ -27,7 +27,7 @@ def open_warranty_claims():
         "Warranty Claim",
         {
             "status": "Open",
-            "_assign": ["like", f"%{user}%"]
+            "owner": frappe.session.user
         }
     )
 
